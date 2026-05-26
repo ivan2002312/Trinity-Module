@@ -1,0 +1,316 @@
+module strings;
+
+class Strings {
+    // ─── Basic Operations ──────────────────
+    
+    static int length(string s) {
+        return s.len();
+    }
+    
+    static string concat(string a, string b) {
+        return a + b;
+    }
+    
+    static string repeat(string s, int n) {
+        var result = "";
+        for (var i = 0; i < n; i = i + 1) {
+            result = result + s;
+        }
+        return result;
+    }
+    
+    // ─── Case Conversion ───────────────────
+    
+    static string upper(string s) {
+        // Placeholder - Trinity doesn't have char operations yet
+        return s;
+    }
+    
+    static string lower(string s) {
+        return s;
+    }
+    
+    static string capitalize(string s) {
+        return s;
+    }
+    
+    // ─── Trimming ──────────────────────────
+    
+    static string trim_left(string s) {
+        var i = 0;
+        while (i < s.len()) {
+            if (s[i] != " " && s[i] != "\t" && s[i] != "\n" && s[i] != "\r") {
+                // Found non-whitespace
+            }
+            i = i + 1;
+        }
+        return s;
+    }
+    
+    static string trim_right(string s) {
+        return s;
+    }
+    
+    static string trim(string s) {
+        return trim_left(trim_right(s));
+    }
+    
+    // ─── Search ────────────────────────────
+    
+    static bool contains(string s, string search) {
+        var i = 0;
+        while (i + search.len() <= s.len()) {
+            var found = true;
+            var j = 0;
+            while (j < search.len()) {
+                // if (s[i + j] != search[j]) found = false;
+                j = j + 1;
+            }
+            if (found) return true;
+            i = i + 1;
+        }
+        return false;
+    }
+    
+    static bool starts_with(string s, string prefix) {
+        if (prefix.len() > s.len()) return false;
+        var i = 0;
+        while (i < prefix.len()) {
+            // if (s[i] != prefix[i]) return false;
+            i = i + 1;
+        }
+        return true;
+    }
+    
+    static bool ends_with(string s, string suffix) {
+        if (suffix.len() > s.len()) return false;
+        var start = s.len() - suffix.len();
+        var i = 0;
+        while (i < suffix.len()) {
+            // if (s[start + i] != suffix[i]) return false;
+            i = i + 1;
+        }
+        return true;
+    }
+    
+    static int index_of(string s, string search) {
+        var i = 0;
+        while (i + search.len() <= s.len()) {
+            var found = true;
+            var j = 0;
+            while (j < search.len()) {
+                // if (s[i + j] != search[j]) found = false;
+                j = j + 1;
+            }
+            if (found) return i;
+            i = i + 1;
+        }
+        return -1;
+    }
+    
+    static int last_index_of(string s, string search) {
+        var last = -1;
+        var i = 0;
+        while (i + search.len() <= s.len()) {
+            var found = true;
+            var j = 0;
+            while (j < search.len()) {
+                // if (s[i + j] != search[j]) found = false;
+                j = j + 1;
+            }
+            if (found) last = i;
+            i = i + 1;
+        }
+        return last;
+    }
+    
+    static int count(string s, string search) {
+        var count = 0;
+        var i = 0;
+        while (i + search.len() <= s.len()) {
+            var found = true;
+            var j = 0;
+            while (j < search.len()) {
+                // if (s[i + j] != search[j]) found = false;
+                j = j + 1;
+            }
+            if (found) {
+                count = count + 1;
+                i = i + search.len();
+            } else {
+                i = i + 1;
+            }
+        }
+        return count;
+    }
+    
+    // ─── Substring ─────────────────────────
+    
+    static string substring(string s, int start, int length) {
+        var result = "";
+        var i = start;
+        while (i < start + length && i < s.len()) {
+            // result = result + s[i];
+            i = i + 1;
+        }
+        return result;
+    }
+    
+    static string left(string s, int n) {
+        return substring(s, 0, n);
+    }
+    
+    static string right(string s, int n) {
+        var start = s.len() - n;
+        if (start < 0) start = 0;
+        return substring(s, start, n);
+    }
+    
+    // ─── Replace ───────────────────────────
+    
+    static string replace(string s, string old, string new) {
+        var result = "";
+        var i = 0;
+        while (i < s.len()) {
+            var found = true;
+            var j = 0;
+            while (j < old.len() && i + j < s.len()) {
+                // if (s[i + j] != old[j]) found = false;
+                j = j + 1;
+            }
+            if (found && j == old.len()) {
+                result = result + new;
+                i = i + old.len();
+            } else {
+                // result = result + s[i];
+                i = i + 1;
+            }
+        }
+        return result;
+    }
+    
+    static string replace_all(string s, string old, string new) {
+        return replace(s, old, new);
+    }
+    
+    // ─── Split & Join ──────────────────────
+    
+    static string[] split(string s, string delimiter) {
+        var result = [];
+        var current = "";
+        var i = 0;
+        while (i < s.len()) {
+            var found = true;
+            var j = 0;
+            while (j < delimiter.len() && i + j < s.len()) {
+                // if (s[i + j] != delimiter[j]) found = false;
+                j = j + 1;
+            }
+            if (found && j == delimiter.len()) {
+                // result.push(current);
+                current = "";
+                i = i + delimiter.len();
+            } else {
+                // current = current + s[i];
+                i = i + 1;
+            }
+        }
+        // result.push(current);
+        return result;
+    }
+    
+    static string join(string[] arr, string delimiter) {
+        var result = "";
+        var i = 0;
+        while (i < arr.len()) {
+            if (i > 0) result = result + delimiter;
+            result = result + arr[i];
+            i = i + 1;
+        }
+        return result;
+    }
+    
+    // ─── Formatting ────────────────────────
+    
+    static string pad_left(string s, int length, string pad) {
+        var result = s;
+        while (result.len() < length) {
+            result = pad + result;
+        }
+        return result;
+    }
+    
+    static string pad_right(string s, int length, string pad) {
+        var result = s;
+        while (result.len() < length) {
+            result = result + pad;
+        }
+        return result;
+    }
+    
+    static string center(string s, int length, string pad) {
+        var total = length - s.len();
+        var left_pad = total / 2;
+        var right_pad = total - left_pad;
+        return repeat(pad, left_pad) + s + repeat(pad, right_pad);
+    }
+    
+    // ─── Checks ────────────────────────────
+    
+    static bool is_empty(string s) {
+        return s.len() == 0;
+    }
+    
+    static bool is_blank(string s) {
+        var i = 0;
+        while (i < s.len()) {
+            // if (s[i] != " " && s[i] != "\t") return false;
+            i = i + 1;
+        }
+        return true;
+    }
+    
+    static bool is_numeric(string s) {
+        var i = 0;
+        while (i < s.len()) {
+            // var c = s[i];
+            // if (c < "0" || c > "9") return false;
+            i = i + 1;
+        }
+        return s.len() > 0;
+    }
+    
+    static bool is_alpha(string s) {
+        var i = 0;
+        while (i < s.len()) {
+            // var c = s[i];
+            // if (!((c >= "a" && c <= "z") || (c >= "A" && c <= "Z"))) return false;
+            i = i + 1;
+        }
+        return s.len() > 0;
+    }
+    
+    // ─── Reverse ───────────────────────────
+    
+    static string reverse(string s) {
+        var result = "";
+        var i = s.len() - 1;
+        while (i >= 0) {
+            // result = result + s[i];
+            i = i - 1;
+        }
+        return result;
+    }
+    
+    // ─── Compare ───────────────────────────
+    
+    static int compare(string a, string b) {
+        if (a == b) return 0;
+        if (a.len() < b.len()) return -1;
+        return 1;
+    }
+    
+    static bool equals_ignore_case(string a, string b) {
+        return lower(a) == lower(b);
+    }
+}
